@@ -97,7 +97,7 @@ function initializeScratchCard(data) {
             $("#card").wScratchPad({
                 size: 100,
                 bg: cardData.photoUrl,
-                fg: "../Images/8802794.png",
+                fg: "../Images/scratchToWin.png",
                 cursor: "pointer",
                 scratchMove: function (e, percent) {
                     // Clear the previous timeout
@@ -238,7 +238,7 @@ function autoDownload() {
 
     // Load your main image
     const img = new Image();
-    img.src = '../congratulations-ziya.jpg'; // Replace with your image path
+    img.src = '../congratulations.png'; // Replace with your image path
 
     img.onload = function () {
         // Draw your main image on canvas
@@ -247,9 +247,9 @@ function autoDownload() {
         // Add text
         ctx.font = '100px Arial';
         ctx.fillStyle = 'black';
-        ctx.fillText(prize, 850, 1550); // Adjust position as needed
-        ctx.fillText('Winner ID: ' + winnerID, 650, 1700);
-        ctx.fillText(dateTime, 600, 1850);
+        ctx.fillText(prize, 850, 1400); // Adjust position as needed
+        ctx.fillText('Winner ID: ' + winnerID, 650, 1550);
+        ctx.fillText(dateTime, 600, 1700);
 
         // Append canvas to document body (temporary for dataURL generation)
         document.body.appendChild(canvas);
