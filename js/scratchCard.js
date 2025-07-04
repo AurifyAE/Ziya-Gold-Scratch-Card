@@ -36,11 +36,14 @@ async function retrieveDataAndInitializeScratchCard() {
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
+            console.log(data,'this is the data');
             data.id = doc.id;
             cardsData.push(data);
+            
         });
 
         let selectedPrize = selectPrizeBasedOnPurchase(purchaseAmount, cardsData);
+        
 
         if (selectedPrize) {
             initializeScratchCard(selectedPrize);
@@ -54,33 +57,24 @@ async function retrieveDataAndInitializeScratchCard() {
 function selectPrizeBasedOnPurchase(purchaseAmount, cardsData) {
     purchaseAmount = Number(purchaseAmount);
 
-    if (purchaseAmount >= 4500) {
-        // Only allow Gold Coin if available
-        const goldPrize = cardsData.find(card => card.prizeName === "Gold Coin" && card.count > 0);
-        if (goldPrize) {
-            return "Gold Coin";
-        } else {
-            console.warn("Gold Coin not available");
-            return null; // or handle it as needed
-        }
-    } if (purchaseAmount >= 5000){
-        // Only allow Making Charge if available
-        const makingChargePrize = cardsData.find(card => card.prizeName === "Making Charge" && card.count > 0);
-        if (makingChargePrize) {
-            return "Making Charge";
-        } else {
-            console.warn("Making Charge not available");
-            return null; // or handle it as needed
-        }
+    let prizeOptions;
+
+    if (purchaseAmount >= 4000) {
+        // All prizes available
+        prizeOptions = cardsData.filter(card => card.count > 0).map(card => card.prizeName);
+    } else if (purchaseAmount >= 2000) {
+        // Exclude Gold Coin
+        prizeOptions = cardsData
+            .filter(card => card.prizeName !== "Gold Coin" && card.count > 0)
+            .map(card => card.prizeName);
+    } else {
+        // Exclude Gold Coin and 50% OFF
+        prizeOptions = cardsData
+            .filter(card => card.prizeName !== "Gold Coin" && card.prizeName !== "50% OFF" && card.count > 0)
+            .map(card => card.prizeName);
     }
 
-    // For <= 4500, select from other available prizes
-    return selectRandomAvailablePrize(
-        cardsData
-            .filter(card => card.prizeName !== "Gold Coin" && card.count > 0)
-            .map(card => card.prizeName),
-        cardsData
-    );
+    return selectRandomAvailablePrize(prizeOptions, cardsData);
 }
 
 function selectRandomAvailablePrize(prizeOptions, cardsData) {
