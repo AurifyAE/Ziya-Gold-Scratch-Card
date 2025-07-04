@@ -54,13 +54,22 @@ async function retrieveDataAndInitializeScratchCard() {
 function selectPrizeBasedOnPurchase(purchaseAmount, cardsData) {
     purchaseAmount = Number(purchaseAmount);
 
-    if (purchaseAmount > 4500) {
+    if (purchaseAmount >= 4500) {
         // Only allow Gold Coin if available
         const goldPrize = cardsData.find(card => card.prizeName === "Gold Coin" && card.count > 0);
         if (goldPrize) {
             return "Gold Coin";
         } else {
             console.warn("Gold Coin not available");
+            return null; // or handle it as needed
+        }
+    } if (purchaseAmount >= 5000){
+        // Only allow Making Charge if available
+        const makingChargePrize = cardsData.find(card => card.prizeName === "Making Charge" && card.count > 0);
+        if (makingChargePrize) {
+            return "Making Charge";
+        } else {
+            console.warn("Making Charge not available");
             return null; // or handle it as needed
         }
     }
