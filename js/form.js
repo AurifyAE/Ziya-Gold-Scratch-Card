@@ -85,6 +85,7 @@ async function saveChanges() {
     const birthday = document.getElementById('inputBirthday').value.trim();
     const emirates = document.getElementById('inputEmirates').value.trim();
     const nationality = document.getElementById('inputNationality').value.trim();
+    const branch = document.getElementById('inputBranch').value.trim();
     const state = document.getElementById('inputState').value.trim();
     const posNo = document.getElementById('inputPosNo').value.trim();
     const purchaseAmount = document.getElementById('inputPurchaseAmount').value.trim();
@@ -95,7 +96,7 @@ async function saveChanges() {
     }
 
     // Validate inputs
-    if (validateInputs(firstName, email, birthday, emirates, nationality, state, posNo, purchaseAmount)) {
+    if (validateInputs(firstName, email, birthday, emirates, nationality, branch, state, posNo, purchaseAmount)) {
         const userDocRef = collection(firestore, `users/${uid}/table`);
 
         // Check if posNo already exists
@@ -116,6 +117,7 @@ async function saveChanges() {
             birthday: birthday,
             emirates: emirates,
             nationality: nationality,
+            branch: branch,
             state: state,
             posNo: posNo,
             purchaseAmount: purchaseAmount,
@@ -134,6 +136,7 @@ async function saveChanges() {
             document.getElementById('inputBirthday').value = '';
             document.getElementById('inputEmirates').value = '';
             document.getElementById('inputNationality').value = '';
+            document.getElementById('inputBranch').value = '';
             document.getElementById('inputState').value = '';
             document.getElementById('inputPosNo').value = '';
             document.getElementById('inputPurchaseAmount').value = '';
