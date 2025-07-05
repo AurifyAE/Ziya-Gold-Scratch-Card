@@ -100,15 +100,15 @@ async function saveChanges() {
         const userDocRef = collection(firestore, `users/${uid}/table`);
 
         // Check if posNo already exists
-        const querySnapshot = await getDocs(query(userDocRef, where('posNo', '==', posNo)));
-        if (!querySnapshot.empty) {
-            // If posNo already exists, show error message
-            // console.log('Position number already exists. Please choose another one.');
-            const posErrorElement = document.getElementById('posError');
-            posErrorElement.style.display = 'block';
-            posErrorElement.innerHTML = 'Pos Number Already Exists'
-            return; // Exit the function without saving
-        }
+        // const querySnapshot = await getDocs(query(userDocRef, where('posNo', '==', posNo)));
+        // if (!querySnapshot.empty) {
+        //     // If posNo already exists, show error message
+        //     // console.log('Position number already exists. Please choose another one.');
+        //     const posErrorElement = document.getElementById('posError');
+        //     posErrorElement.style.display = 'block';
+        //     posErrorElement.innerHTML = 'Pos Number Already Exists'
+        //     return; // Exit the function without saving
+        // }
 
         const dataToSave = {
             firstName: firstName,
